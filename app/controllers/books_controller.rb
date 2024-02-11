@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-  # before_action :set_book, only: %i[ show update destroy ]
+  before_action :set_book, only: %i[ show update destroy ]
 
   # GET /books
   def index
@@ -10,10 +10,10 @@ class BooksController < ApplicationController
   # GET /books/1
   def show
     @book = Book.find_by(id: params[:id])
-    if @book 
+    if @book
       render json: @book, status: :ok
-    else
-      render json: {errors: "book not found!"}, status: :not_found
+    else 
+      render json: {errors: "Book not found!"}, status: :not_found
     end
   end
 
@@ -22,7 +22,7 @@ class BooksController < ApplicationController
     @book = Book.new(book_params)
 
     if @book.save
-      render json: @book, status: :created
+      render json: @book, status: :created, location: @book
     else
       render json: {errors: "book not creatted"}, status: :unprocessable_entity
     end
@@ -42,24 +42,16 @@ class BooksController < ApplicationController
   # DELETE /books/1
   def destroy
     @book = Book.find_by(id: params[:id])
-    if @book
-      @book.destroy
-      head :no_content
-    else
-      render json: {errors: "book not found!"}, status: :not_found
-    end
+    if @book 
+    @book.destroy
+    head :no_content
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    # def set_book 
-    #   @book = Book.find(params[:id])
-    #   if @book 
-    #     render @book, status: :created
-    #   else
-    #     render json: {errors: "book not found!"}, status: :not
-    #   end
-    # end
+    def set_book
+      @book = Book.find(params[:id])
+    end
 
     # Only allow a list of trusted parameters through.
     def book_params
