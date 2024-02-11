@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ttitle: MyString
+  author: MyString
+  publisher: MyString
+  year_of_publish: 2024-02-10 20:26:48
+  genre: MyString
+  synopsis: MyText
+
+two:
+  ttitle: MyString
+  author: MyString
+  publisher: MyString
+  year_of_publish: 2024-02-10 20:26:48
+  genre: MyString
+  synopsis: MyText

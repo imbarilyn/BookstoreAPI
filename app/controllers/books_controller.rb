@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-  before_action :set_book, only: %i[ show update destroy ]
+  # before_action :set_book, only: %i[ show update destroy ]
 
   # GET /books
   def index
@@ -22,7 +22,7 @@ class BooksController < ApplicationController
     @book = Book.new(book_params)
 
     if @book.save
-      render json: @book, status: :created, location: @book
+      render json: @book, status: :created
     else
       render json: {errors: "book not creatted"}, status: :unprocessable_entity
     end
@@ -42,7 +42,12 @@ class BooksController < ApplicationController
   # DELETE /books/1
   def destroy
     set_book
-    @book.destroy!
+    if @book
+      @book.destroy
+      head :no_content
+    else
+      render json: {errors: "book not found!"}, status: :not_found
+    end
   end
 
   private
